@@ -1,53 +1,227 @@
-import { formatRelative } from 'date-fns';
-import { nb } from 'date-fns/locale';
-import Head from 'next/head';
-import Image from 'next/image';
-import useSWR from 'swr';;
-import styles from '../styles/Home.module.css';
+import { initTabListener } from "@fremtind/jkl-core";
+import { PrimaryButton } from "@fremtind/jkl-button-react";
+import { Select } from "@fremtind/jkl-select-react";
+import { SummaryTable } from "@fremtind/jkl-summary-table-react";
+import { TextInput } from "@fremtind/jkl-text-input-react";
+import { formatRelative } from "date-fns";
+import { nb } from "date-fns/locale";
+import Head from "next/head";
+import Image from "next/image";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import useSWR from "swr";
+import styles from "../styles/Home.module.css";
+import "@fremtind/jkl-core/core.min.css";
+import "@fremtind/jkl-button/button.min.css";
+import "@fremtind/jkl-select/select.min.css";
+import "@fremtind/jkl-text-input/text-input.min.css";
+import "@fremtind/jkl-summary-table/summary-table.min.css";
 
-const fetcher = (...args) => fetch(...args).then(res => res.json());
+initTabListener();
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+// Beregne den reverserte raten med (1 / exchangeRate)
+const convert = (price, exchangeRate) =>
+  Number.parseFloat(price || 0) * (1 / (exchangeRate || 1));
+
+const formatNok = (nok) => `${nok.toFixed(2)} kroner`.replace(".", ",");
 
 export default function Home(props) {
-  const { data, error } = useSWR('/api/nok', fetcher);
+  const { data, error } = useSWR("/api/nok", fetcher);
+  const { register, handleSubmit, control, watch } = useForm();
+  const formData = watch();
+
+  const nokPrice = data
+    ? convert(formData.price, data.conversionRates[formData.currency])
+    : 0;
+  const nokShipping = data
+    ? convert(formData.shipping, data.conversionRates[formData.currency])
+    : 0;
+
+  const nokTollBase = nokPrice + nokShipping;
+  const nokToll = nokTollBase * (Number.parseFloat(formData.toll || 0) / 100);
+
+  const nokVatBase = nokTollBase + nokToll;
+  const nokVat = nokVatBase * (Number.parseFloat(formData.vat || 0) / 100);
+
+  const nokSum = nokPrice + nokShipping + nokToll + nokVat;
+  const nokFee = Number.parseFloat(formData.fee || 0);
 
   return (
     <div className={styles.container}>
       <Head>
-        <html lang="no" />
+        <html lang="no" className="jkl" />
         <title>Valutakalkulator</title>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Valutakalkulator
-        </h1>
+      <main className={` ${styles.main}`}>
+        <h1 className="jkl-title jkl-spacing-l--bottom">Valutakalkulator</h1>
 
+        {error && (
+          <p className="jkl-spacing-m--bottom">
+            Aida, her skjedde det noe feil så valutainformasjonen ikke kunne
+            hentes. Du må dessverre prøve igjen senere.
+          </p>
+        )}
 
-        <div className={styles.card}>
-          {error && (
-            <p>
-              Aida, her skjedde det noe feil så valutainformasjonen ikke kunne hentes. Du må dessverre prøve igjen senere.
+        <div className={`${styles.calculator}`}>
+          <form onSubmit={handleSubmit((e) => e.preventDefault())}>
+            <TextInput
+              id="price"
+              className="jkl-spacing-m--bottom"
+              type="number"
+              step="0.01"
+              label="Varens pris"
+              {...register("price", { required: true })}
+            />
+            <Controller
+              control={control}
+              name="currency"
+              defaultValue="USD"
+              render={({ field: { onChange, value, ref } }) => (
+                <Select
+                  ref={ref}
+                  id="currency"
+                  className="jkl-spacing-m--bottom"
+                  label="Valuta"
+                  items={["USD", "EUR", "JPY"]}
+                  onChange={onChange}
+                  value={value}
+                />
+              )}
+            />
+            <TextInput
+              id="shipping"
+              className="jkl-spacing-m--bottom"
+              type="number"
+              label="Frakt"
+              {...register("shipping")}
+            />
+            <TextInput
+              id="toll"
+              className="jkl-spacing-m--bottom"
+              type="number"
+              step="0.01"
+              label="Tollsats"
+              helpLabel="Tollsats i prosent"
+              defaultValue="0"
+              {...register("toll")}
+            />
+            <TextInput
+              id="vat"
+              className="jkl-spacing-m--bottom"
+              type="number"
+              step="0.01"
+              label="MVA"
+              helpLabel="Merverdiavgift i prosent"
+              defaultValue="25"
+              {...register("vat")}
+            />
+            <TextInput
+              id="fee"
+              type="number"
+              step="0.01"
+              label="Fortollingsgebyr"
+              defaultValue="150"
+              helpLabel="Varierer mellom speditører"
+              {...register("fee")}
+            />
+          </form>
+
+          <div>
+            <SummaryTable
+              className={`jkl-spacing-2xl--bottom ${styles.summary}`}
+              columnDescriptions={["Rad", "Verdi"]}
+              items={[
+                { label: "Pris", value: formatNok(nokPrice) },
+                { label: "Frakt", value: formatNok(nokShipping) },
+                { label: "Toll", value: formatNok(nokToll) },
+                { label: "MVA", value: formatNok(nokVat) },
+                { label: "Gebyr", value: formatNok(nokFee) },
+              ]}
+              footer={{
+                label: "Sum",
+                value: formatNok(nokSum),
+              }}
+            />
+
+            <p className="jkl-body jkl-spacing-l--bottom">
+              Mer om ulike speditørers fortollingsgebyrer:
             </p>
-          )}
-          {data && (
-            <pre>
-              {JSON.stringify(data, null, 2)}
-            </pre>
-          )}
+            <ul>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.posten.no/fortolling/motta-fra-utlandet"
+                >
+                  Posten
+                </a>
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.fedex.com/no-no/billing/duty-tax.html"
+                >
+                  FedEx
+                </a>
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="http://www.dhlexpress.no/importavgifter/"
+                >
+                  DHL
+                </a>
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.upscontentcentre.com/html/norway"
+                >
+                  UPS
+                </a>
+              </li>
+            </ul>
+            <p className="jkl-body jkl-spacing-l--bottom">
+              <a
+                className="jkl-link jkl-link--external"
+                href="https://www.toll.no/no/varer/"
+              >
+                Tollsatser for ulike varegrupper
+              </a>
+            </p>
+          </div>
         </div>
       </main>
-
       <footer className={styles.footer}>
-        <p>
-          Valutainformasjon fra{' '}
-          <a href="https://www.exchangerate-api.com" rel="noopener noreferrer">
+        <p className="jkl-body">
+          Valutainformasjon fra{" "}
+          <a
+            className="jkl-link jkl-link--external"
+            href="https://www.exchangerate-api.com"
+          >
             ExchangeRate-API
-          </a>{' '}
-          oppdatert {data && formatRelative(new Date(data.timeLastUpdate), new Date(), { locale: nb })}
+          </a>{" "}
+          oppdatert{" "}
+          {data &&
+            formatRelative(new Date(data.timeLastUpdate), new Date(), {
+              locale: nb,
+            })}
+        </p>
+
+        <p className="jkl-body">
+          Eksempel på{" "}
+          <a
+            className="jkl-link jkl-link--external"
+            href="https://www.toll.no/no/netthandel/utregning-mva/"
+          >
+            utregning av norsk merverdiavgift
+          </a>
         </p>
       </footer>
     </div>
-  )
+  );
 }
