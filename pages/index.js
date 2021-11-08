@@ -25,7 +25,10 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const convert = (price, exchangeRate) =>
   Number.parseFloat(price || 0) * (1 / (exchangeRate || 1));
 
-const formatNok = (nok) => `${nok.toFixed(2)} kroner`.replace(".", ",");
+const formatNok = (nok, options = { aria: false, currency: "USD" }) =>
+  `${nok.toFixed(2)} kroner${
+    options.aria ? ` totalt konvertert fra ${options.currency}` : ""
+  }`.replace(".", ",");
 
 export default function Home(props) {
   const { data, error } = useSWR("/api/nok", fetcher);
@@ -63,6 +66,12 @@ export default function Home(props) {
 
       <main className={styles.main}>
         <h1 className={`jkl-title ${styles.title}`}>Importkalkulator</h1>
+
+        <span className="jkl-sr-only" aria-live="polite">
+          {nokPrice > 0
+            ? formatNok(nokSum, { aria: true, currency: formData.currency })
+            : ""}
+        </span>
 
         {error && (
           <p className="jkl-spacing-m--bottom">
