@@ -52,13 +52,17 @@ export default function Home(props) {
     <div className={styles.container}>
       <Head>
         <html lang="no" className="jkl" />
-        <title>Valutakalkulator</title>
+        <title>Importkalkulator</title>
+        <meta
+          name="description"
+          content="Hjelper deg beregne prisen i kroner for varer du handler i nettbutikker utenfor VOEC-ordningen."
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
 
-      <main className={` ${styles.main}`}>
-        <h1 className="jkl-title jkl-spacing-l--bottom">Valutakalkulator</h1>
+      <main className={styles.main}>
+        <h1 className={`jkl-title ${styles.title}`}>Importkalkulator</h1>
 
         {error && (
           <p className="jkl-spacing-m--bottom">
@@ -77,49 +81,58 @@ export default function Home(props) {
               label="Varens pris"
               {...register("price", { required: true })}
             />
-            <Controller
-              control={control}
-              name="currency"
-              defaultValue="USD"
-              render={({ field: { onChange, value, ref } }) => (
-                <Select
-                  ref={ref}
-                  id="currency"
-                  className="jkl-spacing-m--bottom"
-                  label="Valuta"
-                  items={["USD", "EUR", "JPY"]}
-                  onChange={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <TextInput
-              id="shipping"
-              className="jkl-spacing-m--bottom"
-              type="number"
-              label="Frakt"
-              {...register("shipping")}
-            />
-            <TextInput
-              id="toll"
-              className="jkl-spacing-m--bottom"
-              type="number"
-              step="0.01"
-              label="Tollsats"
-              helpLabel="Tollsats i prosent"
-              defaultValue="0"
-              {...register("toll")}
-            />
-            <TextInput
-              id="vat"
-              className="jkl-spacing-m--bottom"
-              type="number"
-              step="0.01"
-              label="MVA"
-              helpLabel="Merverdiavgift i prosent"
-              defaultValue="25"
-              {...register("vat")}
-            />
+            <div style={{ display: "flex" }}>
+              <TextInput
+                id="shipping"
+                className="jkl-spacing-m--bottom jkl-spacing-s--right"
+                type="number"
+                label="Frakt"
+                width="9rem"
+                {...register("shipping")}
+              />
+              <Controller
+                control={control}
+                name="currency"
+                defaultValue="USD"
+                render={({ field: { onChange, value, ref } }) => (
+                  <Select
+                    ref={ref}
+                    id="currency"
+                    className="jkl-spacing-m--bottom"
+                    label="Valuta"
+                    items={data ? Object.keys(data.conversionRates) : ["USD"]}
+                    onChange={onChange}
+                    value={value}
+                    width="6rem"
+                  />
+                )}
+              />
+            </div>
+
+            <div style={{ display: "flex" }}>
+              <TextInput
+                id="toll"
+                className="jkl-spacing-m--bottom jkl-spacing-s--right"
+                type="number"
+                step="0.01"
+                label="Tollsats"
+                helpLabel="I prosent"
+                defaultValue="0"
+                width="9rem"
+                {...register("toll")}
+              />
+              <TextInput
+                id="vat"
+                className="jkl-spacing-m--bottom"
+                type="number"
+                step="0.01"
+                label="MVA"
+                helpLabel="I prosent"
+                defaultValue="25"
+                width="7rem"
+                {...register("vat")}
+              />
+            </div>
             <TextInput
               id="fee"
               type="number"
@@ -133,7 +146,7 @@ export default function Home(props) {
 
           <div>
             <SummaryTable
-              className={`jkl-spacing-2xl--bottom ${styles.summary}`}
+              className={styles.summary}
               columnDescriptions={["Rad", "Verdi"]}
               items={[
                 { label: "Pris", value: formatNok(nokPrice) },
@@ -147,11 +160,71 @@ export default function Home(props) {
                 value: formatNok(nokSum),
               }}
             />
-
-            <p className="jkl-body jkl-spacing-l--bottom">
-              Mer om ulike speditørers fortollingsgebyrer:
-            </p>
-            <ul>
+          </div>
+        </div>
+      </main>
+      <footer className={styles.footer}>
+        <div className={styles.footerContent}>
+          <div>
+            <h2 className="jkl-heading-5">Om kalkulatoren</h2>
+            <ul className="jkl-small">
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.exchangerate-api.com"
+                >
+                  Valutainformasjon fra ExchangeRateAPI
+                </a>
+              </li>
+              <li>
+                Oppdatert{" "}
+                {data &&
+                  formatRelative(new Date(data.timeLastUpdate), new Date(), {
+                    locale: nb,
+                  })}
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.wllm.no"
+                >
+                  Laget av William Killerud
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="jkl-heading-5">Tollinformasjon</h2>
+            <ul className="jkl-small">
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.toll.no/no/bedrift/import/voec/voec-ordningen/"
+                >
+                  VOEC-ordningen
+                </a>
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.toll.no/no/varer/"
+                >
+                  Tollsatser
+                </a>
+              </li>
+              <li>
+                <a
+                  className="jkl-link jkl-link--external"
+                  href="https://www.toll.no/no/netthandel/utregning-mva/"
+                >
+                  Eksempelutregning
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h2 className="jkl-heading-5">Speditørers gebyrer</h2>
+            <ul className="jkl-small">
               <li>
                 <a
                   className="jkl-link jkl-link--external"
@@ -185,42 +258,8 @@ export default function Home(props) {
                 </a>
               </li>
             </ul>
-            <p className="jkl-body jkl-spacing-l--bottom">
-              <a
-                className="jkl-link jkl-link--external"
-                href="https://www.toll.no/no/varer/"
-              >
-                Tollsatser for ulike varegrupper
-              </a>
-            </p>
           </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <p className="jkl-body">
-          Valutainformasjon fra{" "}
-          <a
-            className="jkl-link jkl-link--external"
-            href="https://www.exchangerate-api.com"
-          >
-            ExchangeRate-API
-          </a>{" "}
-          oppdatert{" "}
-          {data &&
-            formatRelative(new Date(data.timeLastUpdate), new Date(), {
-              locale: nb,
-            })}
-        </p>
-
-        <p className="jkl-body">
-          Eksempel på{" "}
-          <a
-            className="jkl-link jkl-link--external"
-            href="https://www.toll.no/no/netthandel/utregning-mva/"
-          >
-            utregning av norsk merverdiavgift
-          </a>
-        </p>
       </footer>
     </div>
   );
