@@ -1,6 +1,6 @@
 import { initTabListener } from "@fremtind/jkl-core";
 import { PrimaryButton } from "@fremtind/jkl-button-react";
-import { Select } from "@fremtind/jkl-select-react";
+import { NativeSelect } from "@fremtind/jkl-select-react";
 import { SummaryTable } from "@fremtind/jkl-summary-table-react";
 import { TextInput } from "@fremtind/jkl-text-input-react";
 import { formatRelative } from "date-fns";
@@ -95,7 +95,7 @@ export default function Home(props) {
                 name="currency"
                 defaultValue="USD"
                 render={({ field: { onChange, value, ref } }) => (
-                  <Select
+                  <NativeSelect
                     ref={ref}
                     id="currency"
                     className="jkl-spacing-m--bottom"
