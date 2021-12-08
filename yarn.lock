@@ -85,6 +85,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.16.3":
+  version "7.16.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.16.3.tgz#b86f0db02a04187a3c17caa77de69840165d42d5"
+  integrity sha512-WBwekcqacdY2e9AF/Q7WLFUWmdJGJTkbjqTjoMDgXkVZ3ZRUvOPsLb5KdwISoQVsbP+DQzVZW4Zhci0DvpbNTQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/types@7.15.0":
   version "7.15.0"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.15.0.tgz#61af11f2286c4e9c69ca8deb5f4375a73c72dcbd"
@@ -133,35 +140,43 @@
     "@babel/runtime" "^7.16.0"
     classnames "^2.2.6"
 
-"@fremtind/jkl-icon-button-react@^0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icon-button-react/-/jkl-icon-button-react-0.7.1.tgz#3c5f483c8bc55fc2f8975074d041eba91dcbcff6"
-  integrity sha512-voESqpK5SCPr5rDl92cASBGxHQ8qoqb9OVdYVgyigsVC8u1PFhAMhgxP3ufkmE0NQm8Nv8LIyFtHxVjoOZsqzQ==
+"@fremtind/jkl-core@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-core/-/jkl-core-8.1.1.tgz#58d954999c67bfa55ea0073ad661cafe01229746"
+  integrity sha512-2mh6dbWSZ2g6chIzg5+ZMBEpCKXF5c2Zx3tQOJ/jqDU2QN6ukpZ05k9feA2xJiP3ArC3usAY7gohccyWVJMvcg==
   dependencies:
-    "@babel/runtime" "^7.16.0"
-    "@fremtind/jkl-icon-button" "^0.5.1"
+    "@babel/runtime" "^7.16.3"
+    classnames "^2.2.6"
 
-"@fremtind/jkl-icon-button@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icon-button/-/jkl-icon-button-0.5.1.tgz#9ca7d0e3822afb32dce52fef382421f2b3866844"
-  integrity sha512-ZypgGjBftFZQC3WT52XaWDoUQcSU9FxQAHjhM2OSu4a9QMFhC5xY+OUoAumIYdYhddMmWl71a+XFtfoebqUk7Q==
+"@fremtind/jkl-icon-button-react@^0.7.5":
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icon-button-react/-/jkl-icon-button-react-0.7.5.tgz#31016a7cf6e372e2dd8b37f264d1cca4707a2a75"
+  integrity sha512-0zVBKSMNqsIQlzVKiEtiJyPjWbfmImEYIeF7BS/ZD3zHofiu6uDx2pQPP/aCBBDmKsuuzq7OJZySTdvBZPArsw==
   dependencies:
-    "@fremtind/jkl-core" "^8.0.1"
+    "@babel/runtime" "^7.16.3"
+    "@fremtind/jkl-icon-button" "^0.5.3"
 
-"@fremtind/jkl-icons-react@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icons-react/-/jkl-icons-react-4.0.1.tgz#38e99c20cf8b1a8dd6c63daac23ea5ba7f70a503"
-  integrity sha512-EsomCvNG99jjbuqH04pKyVDOxNDQZVkrBr8/8NOtYdrxRVEDU+tXoNONg8gb39g95/DcASeA+z1EvYcwsynt8w==
+"@fremtind/jkl-icon-button@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icon-button/-/jkl-icon-button-0.5.3.tgz#8b0c3f249ffa0e2208b501a1292e8b1e1039cf47"
+  integrity sha512-oWHlfTpuMHTDn3uKjgUjFTNx1ER7yZ0qhseqt7d2Pqfy03yilvavIwXdpFiQy4okNhG7lL5RZPVUahAkxobnqA==
   dependencies:
-    "@babel/runtime" "^7.16.0"
-    "@fremtind/jkl-icons" "^4.0.1"
+    "@fremtind/jkl-core" "^8.1.1"
 
-"@fremtind/jkl-icons@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icons/-/jkl-icons-4.0.1.tgz#44fc5ecc3a2e13597f0c03e38e2e9d8dbb5ff8ee"
-  integrity sha512-1Y3hHGdt96D0o1aa1TKfA9HIq/SEJSSGajT4GbWWcfJ9IjPJWzZkZdQzEYnacTcYm25czjnyovRwJkjQ48xHYg==
+"@fremtind/jkl-icons-react@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icons-react/-/jkl-icons-react-4.0.4.tgz#e009c28d5c4055e46dcd7460d088dc7d93475dbd"
+  integrity sha512-QR3PHNkqauOKQ83VI4CVlYx4vcn5UmrDvw4tTARnL41YCzwYaSTtrCqMqoxJrdYZcO+E27nXYL90c8VjH7EmIQ==
   dependencies:
-    "@fremtind/jkl-core" "^8.0.1"
+    "@babel/runtime" "^7.16.3"
+    "@fremtind/jkl-icons" "^4.0.3"
+
+"@fremtind/jkl-icons@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-icons/-/jkl-icons-4.0.3.tgz#34ca520a25423e430cdb1589e2265abc73425630"
+  integrity sha512-c5UTfVlCxGSiqgdP/qR+kpxE9Jl2DMzNLcc1zJOyFsGo413ScSkEKyn8PCm9c8BO2PpIlV69n7+RiQKbSnP27Q==
+  dependencies:
+    "@fremtind/jkl-core" "^8.1.1"
 
 "@fremtind/jkl-loader-react@^7.0.1":
   version "7.0.1"
@@ -223,26 +238,26 @@
   dependencies:
     "@fremtind/jkl-core" "^8.0.1"
 
-"@fremtind/jkl-text-input-react@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-text-input-react/-/jkl-text-input-react-7.0.1.tgz#a7df27f713593e893637ed6dd24b31111abe9f99"
-  integrity sha512-DrRNKHYq8ssTGHrugAiYXqSRfjXToSY7O4THTBYYStIFZAJfUKR1kNSRtm83FPJJxsh/iVLubfLjLb+oQkbKoA==
+"@fremtind/jkl-text-input-react@^7.0.10":
+  version "7.0.10"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-text-input-react/-/jkl-text-input-react-7.0.10.tgz#3e241e69833f32dfea54d202eee96f8359f584c4"
+  integrity sha512-jjOSOSVVvbaWU+fTcP4KFw4pOydxl8RLZ99cuYEGtyIJRVzw3UfH+K9l4v1apV3k8yGxBwhPMsIkzWSrX/uugQ==
   dependencies:
-    "@babel/runtime" "^7.16.0"
-    "@fremtind/jkl-icon-button-react" "^0.7.1"
-    "@fremtind/jkl-icons-react" "^4.0.1"
-    "@fremtind/jkl-text-input" "^6.0.1"
+    "@babel/runtime" "^7.16.3"
+    "@fremtind/jkl-icon-button-react" "^0.7.5"
+    "@fremtind/jkl-icons-react" "^4.0.4"
+    "@fremtind/jkl-text-input" "^6.0.7"
     classnames "^2.2.6"
     downshift "^6.0.5"
     match-sorter "^6.3.0"
     nanoid "^3.1.30"
 
-"@fremtind/jkl-text-input@^6.0.1":
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/@fremtind/jkl-text-input/-/jkl-text-input-6.0.1.tgz#c4437c8edb5b002bf37c0c0eb559293c56a960b9"
-  integrity sha512-Ox5CLjv8qwjrXvPeCzmEGOA6Q0cIo0om1CXffw5EGl4lxGF036LQstQonJdUl3w12R4WI3Tg84R+rLf6svo2Yw==
+"@fremtind/jkl-text-input@^6.0.7":
+  version "6.0.7"
+  resolved "https://registry.yarnpkg.com/@fremtind/jkl-text-input/-/jkl-text-input-6.0.7.tgz#2960896a83505df40fa3e9502baaacc32b025875"
+  integrity sha512-LBw5S5DmPFxGZ3NUgagKWX4rKLWSeqyoAatpdMaYOGtGdSQ71vFyyiDEtSQBob27Yr4W/8eMZbcVXF9h3j8q7w==
   dependencies:
-    "@fremtind/jkl-core" "^8.0.1"
+    "@fremtind/jkl-core" "^8.1.1"
 
 "@hapi/accept@5.0.2":
   version "5.0.2"
