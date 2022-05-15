@@ -1,3 +1,5 @@
+@use "@fremtind/jkl-core/jkl";
+
 .main {
   max-width: 45rem;
   padding: 2rem;
@@ -35,7 +37,7 @@
   gap: 0.5rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: jkl.rem(1200px)) {
   .title {
     padding-bottom: 2rem;
   }
@@ -45,7 +47,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: jkl.rem(600px)) {
   .main {
     max-width: unset;
     padding: 1rem;

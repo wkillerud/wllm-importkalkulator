@@ -1,21 +1,17 @@
-import { initTabListener } from '@fremtind/jkl-core';
-import { NativeSelect } from '@fremtind/jkl-select-react';
+import { initTabListener } from "@fremtind/jkl-core";
+import { NativeSelect } from "@fremtind/jkl-select-react";
 import {
   SummaryTable,
   SummaryTableRow,
-} from '@fremtind/jkl-summary-table-react';
-import { TextInput } from '@fremtind/jkl-text-input-react';
-import { formatRelative } from 'date-fns';
-import { nb } from 'date-fns/locale';
-import Head from 'next/head';
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import useSWR from 'swr';
-import styles from '../styles/Home.module.css';
-import '@fremtind/jkl-core/core.min.css';
-import '@fremtind/jkl-select/select.min.css';
-import '@fremtind/jkl-text-input/text-input.min.css';
-import '@fremtind/jkl-summary-table/summary-table.min.css';
+} from "@fremtind/jkl-summary-table-react";
+import { TextInput } from "@fremtind/jkl-text-input-react";
+import { formatRelative } from "date-fns";
+import { nb } from "date-fns/locale";
+import Head from "next/head";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useSWR from "swr";
+import styles from "../styles/Home.module.scss";
 
 initTabListener();
 
@@ -25,13 +21,13 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 const convert = (price, exchangeRate) =>
   Number.parseFloat(price || 0) * (1 / (exchangeRate || 1));
 
-const formatNok = (nok, options = { aria: false, currency: 'USD' }) =>
+const formatNok = (nok, options = { aria: false, currency: "USD" }) =>
   `${nok.toFixed(2)} kroner${
-    options.aria ? ` totalt konvertert fra ${options.currency}` : ''
-  }`.replace('.', ',');
+    options.aria ? ` totalt konvertert fra ${options.currency}` : ""
+  }`.replace(".", ",");
 
 export default function Home(props) {
-  const { data, error } = useSWR('/api/nok', fetcher);
+  const { data, error } = useSWR("/api/nok", fetcher);
   const { register, handleSubmit, control, watch } = useForm();
   const formData = watch();
 
@@ -70,7 +66,7 @@ export default function Home(props) {
         <span className="jkl-sr-only" aria-live="polite">
           {nokPrice > 0
             ? formatNok(nokSum, { aria: true, currency: formData.currency })
-            : ''}
+            : ""}
         </span>
 
         {error && (
@@ -88,29 +84,29 @@ export default function Home(props) {
               type="number"
               step="0.01"
               label="Varens pris"
-              {...register('price', { required: true })}
+              {...register("price", { required: true })}
             />
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: "flex" }}>
               <TextInput
                 id="shipping"
                 className="jkl-spacing-m--bottom jkl-spacing-s--right"
                 type="number"
                 label="Frakt"
                 width="9rem"
-                {...register('shipping')}
+                {...register("shipping")}
               />
               <NativeSelect
                 id="currency"
                 className="jkl-spacing-m--bottom"
                 label="Valuta"
-                items={data ? Object.keys(data.conversionRates) : ['USD']}
+                items={data ? Object.keys(data.conversionRates) : ["USD"]}
                 width="6rem"
                 defaultValue="USD"
-                {...register('currency')}
+                {...register("currency")}
               />
             </div>
 
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: "flex" }}>
               <TextInput
                 id="toll"
                 className="jkl-spacing-m--bottom jkl-spacing-s--right"
@@ -120,7 +116,7 @@ export default function Home(props) {
                 helpLabel="I prosent"
                 defaultValue="0"
                 width="9rem"
-                {...register('toll')}
+                {...register("toll")}
               />
               <TextInput
                 id="vat"
@@ -131,7 +127,7 @@ export default function Home(props) {
                 helpLabel="I prosent"
                 defaultValue="25"
                 width="7rem"
-                {...register('vat')}
+                {...register("vat")}
               />
             </div>
             <TextInput
@@ -141,14 +137,14 @@ export default function Home(props) {
               label="Fortollingsgebyr"
               defaultValue="150"
               helpLabel="Varierer mellom speditører"
-              {...register('fee')}
+              {...register("fee")}
             />
           </form>
 
           <div>
             <SummaryTable
               className={styles.summary}
-              header={['Rad', 'Verdi']}
+              header={["Rad", "Verdi"]}
               body={
                 <>
                   <SummaryTableRow
@@ -185,7 +181,7 @@ export default function Home(props) {
                 </a>
               </li>
               <li>
-                Oppdatert{' '}
+                Oppdatert{" "}
                 {data &&
                   formatRelative(new Date(data.timeLastUpdate), new Date(), {
                     locale: nb,
