@@ -9,7 +9,7 @@ function getSecondsToNextUpdate(timeNextUpdateUnix) {
 export default async function handler(req, res) {
   const apiKey = process.env.EXCHANGE_RATE_API;
   const response = await fetch(
-    `https://v6.exchangerate-api.com/v6/${apiKey}/latest/NOK`
+    `https://v6.exchangerate-api.com/v6/${apiKey}/latest/NOK`,
   );
   const data = await response.json();
 
