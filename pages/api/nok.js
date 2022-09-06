@@ -8,7 +8,10 @@ function getSecondsToNextUpdate(timeNextUpdateUnix) {
 
 export default async function handler(req, res) {
   let data;
-  if (process.env.NODE_ENV === "development") {
+  if (
+    process.env.NODE_ENV === "development" &&
+    !process.env.EXCHANGE_RATE_API
+  ) {
     data = {
       result: "success",
       documentation: "https://www.exchangerate-api.com/docs",
