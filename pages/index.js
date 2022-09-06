@@ -50,7 +50,6 @@ export default function Home(props) {
   return (
     <div className={styles.container}>
       <Head>
-        <html lang="no" className="jkl" />
         <title>Importkalkulator</title>
         <meta
           name="description"
