@@ -45,11 +45,6 @@ export default async function handler(req, res) {
       result: data.result,
       timeLastUpdate: data.time_last_update_utc,
       timeNextUpdate: data.time_next_update_utc,
-      conversionRates: {
-        USD: data.conversion_rates.USD,
-        EUR: data.conversion_rates.EUR,
-        JPY: data.conversion_rates.JPY,
-        GBP: data.conversion_rates.GBP,
-      },
+      conversionRates: data.conversion_rates,
     });
 }
