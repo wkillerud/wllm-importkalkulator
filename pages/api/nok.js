@@ -8,7 +8,10 @@ function getSecondsToNextUpdate(timeNextUpdateUnix) {
 
 export default async function handler(req, res) {
   let data;
-  if (process.env.NODE_ENV === "development") {
+  if (
+    process.env.NODE_ENV === "development" &&
+    !process.env.EXCHANGE_RATE_API
+  ) {
     data = {
       result: "success",
       documentation: "https://www.exchangerate-api.com/docs",
@@ -42,11 +45,6 @@ export default async function handler(req, res) {
       result: data.result,
       timeLastUpdate: data.time_last_update_utc,
       timeNextUpdate: data.time_next_update_utc,
-      conversionRates: {
-        USD: data.conversion_rates.USD,
-        EUR: data.conversion_rates.EUR,
-        JPY: data.conversion_rates.JPY,
-        GBP: data.conversion_rates.GBP,
-      },
+      conversionRates: data.conversion_rates,
     });
 }

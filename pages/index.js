@@ -1,5 +1,5 @@
 import { initTabListener } from "@fremtind/jkl-core";
-import { NativeSelect } from "@fremtind/jkl-select-react";
+import { Select } from "@fremtind/jkl-select-react";
 import {
   SummaryTable,
   SummaryTableRow,
@@ -28,7 +28,7 @@ const formatNok = (nok, options = { aria: false, currency: "USD" }) =>
 
 export default function Home(props) {
   const { data, error } = useSWR("/api/nok", fetcher);
-  const { register, handleSubmit, control, watch } = useForm();
+  const { register, handleSubmit, watch } = useForm();
   const formData = watch();
 
   const nokPrice = data
@@ -95,9 +95,10 @@ export default function Home(props) {
                 width="9rem"
                 {...register("shipping")}
               />
-              <NativeSelect
+              <Select
                 id="currency"
                 className="jkl-spacing-m--bottom"
+                searchable
                 label="Valuta"
                 items={data ? Object.keys(data.conversionRates) : ["USD"]}
                 width="6rem"
