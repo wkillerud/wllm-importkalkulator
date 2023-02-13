@@ -190,7 +190,7 @@ export default function Home(props) {
               <li>
                 <a
                   className="jkl-link jkl-link--external"
-                  href="https://www.killerud.com"
+                  href="https://github.com/wkillerud/wllm-importkalkulator"
                 >
                   Laget av William Killerud
                 </a>
