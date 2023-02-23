@@ -6,7 +6,7 @@ import "@fremtind/jkl-summary-table/summary-table.scss";
 import "@fremtind/jkl-text-input/text-input.scss";
 
 function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+	return <Component {...pageProps} />;
 }
 
 export default App;

@@ -1,15 +1,27 @@
+:root {
+	--spacing-2: 0.125rem;
+	--spacing-4: 0.25rem;
+	--spacing-8: clamp(0.25rem, 0.42vw + 0.17rem, 0.5rem);
+	--spacing-12: clamp(0.36rem, 0.6vw + 0.24rem, 0.72rem);
+	--spacing-16: clamp(0.52rem, 0.86vw + 0.35rem, 1.04rem);
+	--spacing-20: clamp(0.62rem, 1.04vw + 0.41rem, 1.24rem);
+	--spacing-24: clamp(1.25rem, 0.42vw + 1.17rem, 1.5rem);
+	--spacing-32: clamp(1.56rem, 1.09vw + 1.42rem, 2rem);
+	--spacing-42: clamp(1.95rem, 1.19vw + 1.72rem, 2.66rem);
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
-  color: inherit;
+	color: inherit;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
