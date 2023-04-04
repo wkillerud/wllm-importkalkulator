@@ -35,6 +35,9 @@ export default function Home(props) {
 
 	const formData = watch();
 
+	const conversionRate =
+		formData.currency && data ? data.conversionRates[formData.currency] : null;
+
 	const nokPrice = data
 		? convert(formData.price, data.conversionRates[formData.currency])
 		: 0;
@@ -84,15 +87,24 @@ export default function Home(props) {
 						onSubmit={handleSubmit((e) => e.preventDefault())}
 						className={styles.form}
 					>
-						<Select
-							id="currency"
-							searchable
-							label="Valuta"
-							items={data ? Object.keys(data.conversionRates) : ["USD"]}
-							width="7rem"
-							defaultValue="USD"
-							{...register("currency")}
-						/>
+						<div className={styles.formRow}>
+							<Select
+								id="currency"
+								searchable
+								label="Valuta"
+								items={data ? Object.keys(data.conversionRates) : ["USD"]}
+								width="7rem"
+								helpLabel={
+									conversionRate
+										? `100 NOK = ${Number(conversionRate * 100).toFixed(
+												2
+										  )}`.replace(".", ",")
+										: "Velg valutaen du handler i"
+								}
+								defaultValue="USD"
+								{...register("currency")}
+							/>
+						</div>
 						<div className={styles.formRow}>
 							<TextInput
 								id="price"
