@@ -96,9 +96,9 @@ export default function Home(props) {
 								width="7rem"
 								helpLabel={
 									conversionRate
-										? `100 NOK = ${Number(conversionRate * 100).toFixed(
-												2
-										  )}`.replace(".", ",")
+										? `100 NOK = ${Number(conversionRate * 100).toFixed(2)} ${
+												formData.currency
+										  }`.replace(".", ",")
 										: "Velg valutaen du handler i"
 								}
 								defaultValue="USD"
