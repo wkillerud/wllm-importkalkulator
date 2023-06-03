@@ -272,6 +272,21 @@ export default function Home(props) {
 							</li>
 						</ul>
 					</div>
+					{formData.currency && (
+						<div>
+							<h2 className="jkl-heading-5">Historiske kurser</h2>
+							<ul className="jkl-small">
+								<li>
+									<a
+										className="jkl-link jkl-link--external"
+										href={`https://www.norges-bank.no/tema/Statistikk/Valutakurser/?tab=currency&id=${formData.currency}`}
+									>
+										Statistikk fra Norges Bank for {formData.currency}
+									</a>
+								</li>
+							</ul>
+						</div>
+					)}
 				</div>
 			</footer>
 		</div>
