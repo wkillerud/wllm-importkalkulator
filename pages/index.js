@@ -50,9 +50,8 @@ export default function Home(props) {
 
 	const nokVatBase = nokTollBase + nokToll;
 	const nokVat = nokVatBase * (Number.parseFloat(formData.vat || 0) / 100);
-
-	const nokSum = nokPrice + nokShipping + nokToll + nokVat;
 	const nokFee = Number.parseFloat(formData.fee || 0);
+	const nokSum = nokPrice + nokShipping + nokToll + nokVat + nokFee;
 
 	return (
 		<div className={styles.container}>
