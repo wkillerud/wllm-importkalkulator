@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="no">
+  <head>
+    <title>Importkalkulator</title>
+    <meta name="description" content="Hjelper deg beregne prisen i kroner for varer du handler i nettbutikker utenfor VOEC-ordningen." />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="prefetch" href="importkalkulator.js" />
+    <link rel="stylesheet" href="importkalkulator.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Import&shy;kalkulator</h1>
+      <span id="sr-sum" class="sr-only" aria-live="polite"></span>
+      <p id="api-error" hidden>
+        Aida, her skjedde det noe feil så valutainformasjonen ikke kunne hentes. Du må dessverre prøve igjen senere.
+      </p>
+    </header>
+    <main>
+        <form id="form">
+          <label for="currency">Valuta</label>
+          <input id="currency" name="currency" type="text" list="currencies" aria-describedby="currency-description" />
+          <div class="description" id="currency-description" hidden>
+            100 NOK = <span id="converts-to"></span> (<a href="https://www.norges-bank.no/tema/Statistikk/Valutakurser/?tab=currency&id=" id="currency-statistics-link">historisk</a>)
+          </div>
+          <datalist id="currencies"></datalist>
+
+          <label for="price">Varens pris</label>
+          <input id="price" name="price" type="text" />
+
+          <label for="shipping">Frakt</label>
+          <input id="shipping" name="shipping" type="text" />
+
+          <div class="flex flex-row gap-12">
+            <div>
+              <label for="toll">Tollsats %</label>
+              <input id="toll" name="toll" type="text" value="0" />
+            </div>
+            <div>
+              <label for="vat">MVA %</label>
+              <input id="vat" name="vat" type="text" value="25" />
+            </div>
+          </div>
+
+          <label for="fee">Fortollingsgebyr</label>
+          <input id="fee" name="fee" type="text" value="199" aria-describedby="fee-description" />
+          <div class="description" id="fee-description">I norske kroner</div>
+        </form>
+
+        <div>
+          <table>
+            <thead class="sr-only">
+              <tr>
+                <th scope="col">Rad</th>
+                <th scope="col">Verdi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Pris</th>
+                <td id="sum-price">0,00 kr</td>
+              </tr>
+              <tr>
+                <th scope="row">Frakt</th>
+                <td id="sum-shipping">0,00 kr</td>
+              </tr>
+              <tr id="output-toll" hidden>
+                <th scope="row">Toll</th>
+                <td id="sum-toll">0,00 kr</td>
+              </tr>
+              <tr>
+                <th scope="row">MVA</th>
+                <td id="sum-vat">0,00 kr</td>
+              </tr>
+              <tr>
+                <th scope="row">Gebyr</th>
+                <td id="sum-fee">199,00 kr</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Sum</th>
+                <td id="sum-total">199,00 kr</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </main>
+    <footer class="flex flex-row flex-wrap gap-32 justify-start">
+      <div>
+        <p>Om kalkulatoren</p>
+        <ul>
+          <li>
+            <a href="https://www.exchangerate-api.com">Valutainformasjon fra ExchangeRateAPI</a>
+          </li>
+          <li id="exchange-rates-date" hidden></li>
+          <li>
+            <a href="https://github.com/wkillerud/wllm-importkalkulator">Laget av William Killerud</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p>Tollinformasjon</p>
+        <ul>
+          <li>
+            <a href="https://www.toll.no/no/bedrift/import/voec/voec-ordningen/">VOEC-ordningen</a>
+          </li>
+          <li>
+            <a href="https://www.toll.no/no/varer/">Tollsatser</a>
+          </li>
+          <li>
+            <a href="https://www.toll.no/no/netthandel/utregning-mva/">Eksempelutregning</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <p>Speditørers gebyrer</p>
+        <ul>
+          <li>
+            <a href="https://www.posten.no/fortolling/motta-fra-utlandet">Posten</a>
+          </li>
+          <li>
+            <a href="https://www.fedex.com/no-no/billing/duty-tax.html">FedEx</a>
+          </li>
+          <li>
+            <a href="http://www.dhlexpress.no/importavgifter/">DHL</a>
+          </li>
+          <li>
+            <a href="https://www.upscontentcentre.com/html/norway">UPS</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+    <script type="module" src="importkalkulator.js"></script>
+  </body>
+</html>
