@@ -1,8 +1,5 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-// https://vercel.com/docs/concepts/edge-network/caching
-
 function getSecondsToNextUpdate(timeNextUpdateUnix) {
-	const now = Number(String(Date.now()).substr(0, 10));
+	const now = Number(String(Date.now()).substring(0, 10));
 	return timeNextUpdateUnix - now;
 }
 
