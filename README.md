@@ -5,6 +5,6 @@ Nyttig når en skal sammenligne priser fra nettbutikker som ikke er en del av [V
 
 ## API-nøkkel
 
-Du kan få en gratis API-nøkkel som holder til hva denne appen trenger på [exchangerate-api.com/](https://www.exchangerate-api.com/) mot å registrere en e-post.
+Du kan få en gratis API-nøkkel som holder til hva denne appen trenger på [exchangerate-api.com](https://www.exchangerate-api.com/) mot å registrere en e-post.
 
 API-nøkkelen må settes som en miljøvariabel: `EXCHANGE_RATE_API`.
