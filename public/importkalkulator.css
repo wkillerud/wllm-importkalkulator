@@ -3,7 +3,7 @@
   --accent-bg: #f5f7ff;
   --text: #212121;
   --text-light: #585858;
-  --border: #898EA4;
+  --border: #898ea4;
   --accent: #0d47a1;
 }
 
@@ -18,7 +18,9 @@
   }
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -30,8 +32,8 @@ input {
 
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Avenir Next", Avenir,
-  "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
-  "Helvetica Neue", sans-serif;
+    "Nimbus Sans L", Roboto, "Noto Sans", "Segoe UI", Arial, Helvetica,
+    "Helvetica Neue", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -49,7 +51,6 @@ body > * {
 }
 
 main {
-  padding-top: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -81,7 +82,8 @@ p {
   margin: 1.5rem 0;
 }
 
-p, h1 {
+p,
+h1 {
   overflow-wrap: break-word;
 }
 
