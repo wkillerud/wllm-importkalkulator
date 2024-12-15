@@ -1,12 +1,12 @@
 {
-	"name": "importkalkulator",
-	"version": "1.0.0",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"dev": "NODE_ENV=development node server.js --watch"
-	},
-	"devDependencies": {
-		"express": "^4.21.0"
-	}
+  "name": "importkalkulator",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_ENV=development node --watch --env-file=.env server.js"
+  },
+  "devDependencies": {
+    "express": "^4.21.0"
+  }
 }
